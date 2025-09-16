@@ -6,7 +6,7 @@ This repository contains the official source code for the paper:
 
 📄 Paper Accepted by: MICCAI 2025
 
-🔗 Paper Link: https://arxiv.org/abs/2507.14833
+🔗 Paper Link: https://papers.miccai.org/miccai-2025/paper/4386_paper.pdf
 
 
 
