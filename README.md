@@ -15,7 +15,7 @@ This repository contains the official source code for the paper:
 If you find our work useful, please consider citing:
 
 ```
-@InProceedings{ZhaHao_Paired_MICCAI2025,
+@InProceedings{PIG,
         author = { Zhang, Haoxuan and Cui, Wenju and Cao, Yuzhu and Tan, Tao and Liu, Jie and Peng, Yunsong and Zheng, Jian},
         title = { { Paired Image Generation with Diffusion-Guided Diffusion Models } },
         booktitle = {proceedings of Medical Image Computing and Computer Assisted Intervention -- MICCAI 2025},
