@@ -286,14 +286,6 @@ class MultiDiffusionModel(nn.Module):
 
 
 if __name__ == '__main__':
-    # ddim_config = DDIMConfig()
-    # device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
-    # model = DDIMModel(ddim_config).to(device)
-    # img = torch.randn(2, 1, 256, 256).to(device)
-    # t = torch.randint(low=0, high=8, size=(2 // 2 + 1,)).to(device)
-    # t = torch.cat([t, 8 - t - 1], dim=0)[:2]
-    # print(t)
-    # print(model(img, t).shape)
     config = PIGConfig()
     model_config = config.model
     model = MultiDiffusionModel(model_config)

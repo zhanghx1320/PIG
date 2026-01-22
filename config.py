@@ -61,10 +61,10 @@ class PIGConfig:
         x = data_list[1]
         y = data_list[0]
         model_type_list = ['x', 'y']
-        train_model_type = model_type_list[0]
-        desc = f'x_{x}_y_{y}_{train_model_type}'
-        x_model_path = os.path.join('.', 'log', '20241231_170012_cond_mask_target_img_cond_exp6',
-                                       'best_epoch125_loss0.3461_cond_mask_target_img_cond_exp6.pth')  # 条件模型路径，训练目标模型时用于生成条件
+        train_model_type = model_type_list[1]
+        desc = f'x_{x}_y_{y}_{train_model_type}_pretrained'
+        x_model_path = os.path.join('.', 'log', '20250106_111708_x_mask_y_img_x',
+                                    'best_epoch120_loss0.2651_x_mask_y_img_x.pth')  # 条件模型路径，训练目标模型时用于生成条件
         binary = False  # 是否进行二值化
         binary_thre_weights = [3 / 4, 1 / 4]  # 二值化阈值=binary_thre_weights[0]*max+binary_thre_weights[1]*min
         ternary = False  # 是否进行三值化
@@ -75,7 +75,7 @@ class PIGConfig:
                                  "ckpt_epoch7_loss13.1026_cond_mask_target_img_exp1.pth")  # 继续训练使用的checkpoint路径
         log_dir = os.path.join('.', 'log',
                                f"{time.strftime('%Y%m%d_%H%M%S', time.localtime())}_{desc}")  # checkpoint保存目录
-        batch_size = 8
+        batch_size = 6
         num_workers = 8
         n_epochs = 128
         save_freq = 8  # 保存模型的epoch频率
@@ -83,20 +83,20 @@ class PIGConfig:
     class Sample:
         # 多模型采样配置
 
-        x_model_path = os.path.join('.', 'log', 'cond_multi_mask_target_img', 'exp1',
-                                         'uncond_multi_mask.pth')  # 采样使用的模型路径
-        y_model_path = os.path.join('.', 'log', 'cond_multi_mask_target_img', 'exp1',
-                                       'best_epoch92_loss5.7169_cond_multi_mask_target_img_exp1.pth')  # 采样使用的模型路径
+        x_model_path = os.path.join('.', 'log', '20250106_111708_x_mask_y_img_x',
+                                    'best_epoch120_loss0.2651_x_mask_y_img_x.pth')  # 采样使用的模型路径
+        y_model_path = os.path.join('.', 'log', '20250206_114514_x_mask_y_img_y_pretrained',
+                                    'best_epoch126_loss3.5979_x_mask_y_img_y_pretrained.pth')  # 采样使用的模型路径
         data_list = ['img', 'mask', 'masked', 'multi_mask', 'patient_info']
         x = data_list[1]  # 'mask','img'
         y = data_list[0]  # 'img','mask'
-        x_binary = False  # 是否对条件进行二值化
+        x_binary = True  # 是否对条件进行二值化
         x_ternary = False  # 是否对条件进行三值化
         y_binary = False  # 是否对目标进行二值化
         y_ternary = False  # 是否对目标进行三值化
         binary_thre_weights = [3 / 4, 1 / 4]  # 二值化阈值=binary_thre_weights[0]*max+binary_thre_weights[1]*min
         ternary_thre_weights = [(1 / 3, 2 / 3), (7 / 8, 1 / 8)]  # [thre0,thre1],thre_weights[1][0]>thre_weights[0][0]
-        desc = f'x_{x}_y_{y}_exp1_2'
+        desc = f'x_{x}_y_{y}_pretrained'
         result_type = 'sequence'  # 'last':只保存最后结果,'sequence':保存去噪过程
         skip_type = 'uniform'  # 'uniform':步长均匀,'quad':平方步长
         num_sample_timesteps = 1024  # 采样的步数，在扩散的总步数//采样步数!=0时实际采样步数会大于设定值

@@ -17,7 +17,7 @@ from PIG.utils.mask_to_discrete import mask_to_binary, mask_to_ternary
 from PIG.utils.multi_denoise import multi_denoise, one_step_denoise
 
 
-class MultiDiffusion():
+class MultiDiffusion:
     def __init__(self, multi_diffusion_config):
         self.data_config = multi_diffusion_config.data
         self.model_config = multi_diffusion_config.model
@@ -111,7 +111,8 @@ class MultiDiffusion():
                         elif train_config.ternary is True:
                             thre_weights = train_config.ternary_thre_weights
                             x0_pred = mask_to_ternary(x0_pred, thre_weights).to(dtype=torch.float)
-                        loss = noise_estimation_loss(model, y0, x0_pred, t, e_y, betas, loss_weight_flag=loss_weight_flag)
+                        loss = noise_estimation_loss(model, y0, x0_pred, t, e_y, betas,
+                                                     loss_weight_flag=loss_weight_flag)
 
                     epoch_loss += loss.item()
 
@@ -225,7 +226,7 @@ class MultiDiffusion():
                                               f"x0_{batch * batch_size + i}_{sample_config.x}.jpg")
                         cv2.imwrite(x_path, np.array(x0[i].cpu()).squeeze())
                         y_path = os.path.join(result_dir,
-                                                   f"x0_{batch * batch_size + i}_{sample_config.y}.jpg")
+                                              f"x0_{batch * batch_size + i}_{sample_config.y}.jpg")
                         cv2.imwrite(y_path, np.array(y0[i].cpu()).squeeze())
                         if sample_config.x_binary is True:
                             x0_binary_path = os.path.join(result_dir,
@@ -237,11 +238,11 @@ class MultiDiffusion():
                             cv2.imwrite(x0_ternary_path, np.array(x0_ternary[i].cpu()).squeeze())
                         if sample_config.y_binary is True:
                             y0_binary_path = os.path.join(result_dir,
-                                                                 f"x0_{batch * batch_size + i}_{sample_config.y}_binary.jpg")
+                                                          f"x0_{batch * batch_size + i}_{sample_config.y}_binary.jpg")
                             cv2.imwrite(y0_binary_path, np.array(y0_binary[i].cpu()).squeeze())
                         elif sample_config.y_ternary is True:
                             y0_ternary_path = os.path.join(result_dir,
-                                                                  f"x0_{batch * batch_size + i}_{sample_config.y}_ternary.jpg")
+                                                           f"x0_{batch * batch_size + i}_{sample_config.y}_ternary.jpg")
                             cv2.imwrite(y0_ternary_path, np.array(y0_ternary[i].cpu()).squeeze())
 
 
@@ -266,7 +267,7 @@ class MultiDiffusion():
                                                   f"xt_{j + batch * batch_size}_{i - 1}_{sample_config.x}.jpg")
                             cv2.imwrite(x_path, np.array(xt[j].cpu()).squeeze())
                             y_path = os.path.join(xts_result_dir,
-                                                       f"xt_{j + batch * batch_size}_{i - 1}_{sample_config.y}.jpg")
+                                                  f"xt_{j + batch * batch_size}_{i - 1}_{sample_config.y}.jpg")
                             cv2.imwrite(y_path, np.array(yt[j].cpu()).squeeze())
                     save_t_list = sorted(
                         set(np.linspace(0, len(x0s) - 1, sample_config.save_num, dtype=int)))
@@ -306,7 +307,7 @@ class MultiDiffusion():
                             x_path = os.path.join(x0s_result_dir,
                                                   f"x0_{j + batch * batch_size}_{i}_{sample_config.x}.jpg")
                             y_path = os.path.join(x0s_result_dir,
-                                                       f"x0_{j + batch * batch_size}_{i}_{sample_config.y}.jpg")
+                                                  f"x0_{j + batch * batch_size}_{i}_{sample_config.y}.jpg")
                             cv2.imwrite(x_path, np.array(x0[j].cpu()).squeeze())
                             cv2.imwrite(y_path, np.array(y0[j].cpu()).squeeze())
                             if sample_config.x_binary is True:
@@ -319,9 +320,9 @@ class MultiDiffusion():
                                 cv2.imwrite(x0_ternary_path, np.array(x0_ternary[j].cpu()).squeeze())
                             if sample_config.y_binary is True:
                                 y0_binary_path = os.path.join(x0s_result_dir,
-                                                                     f"x0_{j + batch * batch_size}_{i}_{sample_config.y}_binary.jpg")
+                                                              f"x0_{j + batch * batch_size}_{i}_{sample_config.y}_binary.jpg")
                                 cv2.imwrite(y0_binary_path, np.array(y0_binary[j].cpu()).squeeze())
                             elif sample_config.y_ternary is True:
                                 y0_ternary_path = os.path.join(x0s_result_dir,
-                                                                      f"x0_{j + batch * batch_size}_{i}_{sample_config.y}_ternary.jpg")
+                                                               f"x0_{j + batch * batch_size}_{i}_{sample_config.y}_ternary.jpg")
                                 cv2.imwrite(y0_ternary_path, np.array(y0_ternary[j].cpu()).squeeze())
